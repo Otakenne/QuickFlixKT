@@ -1,8 +1,10 @@
 package com.example.quickflixkt.models
 
 import androidx.annotation.NonNull
+import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+@Entity(tableName = "searched_movies_table")
 data class SearchedMovies(
     @PrimaryKey
     @NonNull
