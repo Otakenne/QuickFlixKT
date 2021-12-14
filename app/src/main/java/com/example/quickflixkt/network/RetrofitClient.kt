@@ -6,9 +6,6 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-private const val BASE_URL = "https://api.themoviedb.org/3/"
-private const val TMDB_API_KEY = "e479dcf3380507fb7c8c98e03dc0bbde"
-private const val DATABASE_NAME = "movies_database"
 
 val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
