@@ -15,8 +15,11 @@ class TrendingMoviesViewModel(
     private val _status = MutableLiveData<LoadStatus>()
     val status: LiveData<LoadStatus> = _status
 
-    private val _trendingMovies = MutableLiveData<List<TrendingMovie>>()
-    val trendingMovies: LiveData<List<TrendingMovie>> = _trendingMovies
+//    private val _trendingMovies = MutableLiveData<List<TrendingMovie>>()
+//    val trendingMovies: LiveData<List<TrendingMovie>> = _trendingMovies
+
+//    var trendingMovies: LiveData<List<TrendingMovie>> = trendingMoviesRepository.trendingMoviesDao.getAllTrendingMovies().asLiveData()
+    var trendingMovies = trendingMoviesRepository.trendingMovies
 
     init {
         getTrendingMovies()
@@ -26,10 +29,12 @@ class TrendingMoviesViewModel(
         viewModelScope.launch {
             _status.value = LoadStatus.LOADING
             try {
-                _trendingMovies.value = trendingMoviesRepository.getTrendingMovies().value
+                trendingMoviesRepository.getTrendingMovies()
+//                _trendingMovies.value = trendingMoviesRepository.trendingMovies.value ?: listOf()
+                val tm = trendingMoviesRepository.trendingMovies.value
                 _status.value = LoadStatus.DONE
             } catch (exception: Exception) {
-                _trendingMovies.value = listOf()
+//                _trendingMovies.value = listOf()
                 _status.value = LoadStatus.ERROR
             }
         }

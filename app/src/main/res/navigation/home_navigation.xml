@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_navigation"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.quickflixkt.fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_movieFragment"
+            app:destination="@id/movieFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieFragment"
+        android:name="com.example.quickflixkt.fragments.MovieFragment"
+        android:label="fragment_movie"
+        tools:layout="@layout/fragment_movie" >
+        <argument
+            android:name="movie_id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_movieFragment_to_actorFragment"
+            app:destination="@id/actorFragment" />
+        <action
+            android:id="@+id/action_movieFragment_self"
+            app:destination="@id/movieFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/actorFragment"
+        android:name="com.example.quickflixkt.fragments.ActorFragment"
+        android:label="fragment_actor"
+        tools:layout="@layout/fragment_actor" >
+        <argument
+            android:name="actor_id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_actorFragment_to_movieFragment"
+            app:destination="@id/movieFragment" />
+    </fragment>
+</navigation>

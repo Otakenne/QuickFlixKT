@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="movie"
+            type="com.example.quickflixkt.models.SimilarMovies" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="@drawable/movies_image_clipper"
+        app:clipToOutline="@{true}">
+
+        <ImageView
+            android:id="@+id/similar_movie_image"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/movie_thumbnail"
+            app:imageUrl="@{movie.backdrop_path}"
+            tools:src="@tools:sample/backgrounds/scenic"/>
+
+    </LinearLayout>
+</layout>

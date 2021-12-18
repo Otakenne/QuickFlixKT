@@ -9,8 +9,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class TrendingMoviesRepository(private val trendingMoviesDao: TrendingMoviesDao) {
-    val trendingMovies: LiveData<List<TrendingMovie>> = trendingMoviesDao.getAllTrendingMovies().asLiveData()
+class TrendingMoviesRepository(val trendingMoviesDao: TrendingMoviesDao) {
+    var trendingMovies: LiveData<List<TrendingMovie>> = trendingMoviesDao.getAllTrendingMovies().asLiveData()
 
     private suspend fun deleteAllTrendingMovies() {
         return withContext(Dispatchers.IO) {
@@ -24,15 +24,17 @@ class TrendingMoviesRepository(private val trendingMoviesDao: TrendingMoviesDao)
         }
     }
 
-    suspend fun getTrendingMovies(): LiveData<List<TrendingMovie>> {
+    suspend fun getTrendingMovies() {
         return withContext(Dispatchers.IO) {
             try {
                 val trendingMoviesResults = MoviesAPI.retrofitService.getTrendingMovies(Constants.TMDB_API_KEY)
                 deleteAllTrendingMovies()
                 insertTrendingMovies(trendingMoviesResults.results)
-                return@withContext trendingMoviesDao.getAllTrendingMovies().asLiveData()
+                trendingMovies = trendingMoviesDao.getAllTrendingMovies().asLiveData()
+//                return@withContext trendingMovies
             } catch (exception: Exception) {
-                return@withContext trendingMoviesDao.getAllTrendingMovies().asLiveData()
+                print(exception.localizedMessage)
+//                return@withContext trendingMovies
             }
         }
     }

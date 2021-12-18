@@ -9,14 +9,14 @@ import retrofit2.http.Path
 
 
 interface APIInterface {
-    @GET("movie/popular?api_key={api_key}")
+    @GET("movie/now_playing")
     suspend fun getTrendingMovies(
         @Query("api_key") api_key: String
     ): TrendingMoviesResults
 
-    @GET("movie/upcoming?api_key={api_key}")
+    @GET("movie/upcoming")
     suspend fun getUpcomingMovies(
-        @Query("api_key") api_key: String?
+        @Query("api_key") api_key: String
     ): UpcomingMoviesResults
 
     @GET("movie/{movie_id}?api_key={api_key}")

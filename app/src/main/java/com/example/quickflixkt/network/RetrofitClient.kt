@@ -1,6 +1,7 @@
 package com.example.quickflixkt.network
 
 import com.example.quickflixkt.interfaces.APIInterface
+import com.example.quickflixkt.utility.Constants
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
@@ -13,7 +14,7 @@ val moshi = Moshi.Builder()
 
 val retrofit = Retrofit.Builder()
     .addConverterFactory(MoshiConverterFactory.create(moshi))
-    .baseUrl("")
+    .baseUrl(Constants.BASE_URL)
     .build()
 
 object MoviesAPI {

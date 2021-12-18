@@ -1,13 +1,11 @@
 package com.example.quickflixkt.dao
 
-import androidx.room.Delete
-import androidx.room.Insert
+import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
-import androidx.room.Query
-import androidx.room.Update
 import com.example.quickflixkt.models.Actor
 import kotlinx.coroutines.flow.Flow
 
+@Dao
 interface ActorDao {
     @Insert(onConflict = REPLACE)
     suspend fun insertActor(actor: Actor)
@@ -22,7 +20,7 @@ interface ActorDao {
     suspend fun deleteActor(actor: Actor)
 
     @Query("DELETE FROM actor_table")
-    fun deleteAllActors(actor: Actor)
+    fun deleteAllActors()
 
     @Query("SELECT * FROM actor_table WHERE id = :id")
     fun getActor(id: String): Flow<Actor>

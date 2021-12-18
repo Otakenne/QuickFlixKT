@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">QuickFlixKT</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="top_movie_image">Top Movie Image</string>
+    <string name="movie_thumbnail">Movie Thumbnail</string>
+    <string name="empty_message_trending">We\'re unable to load trending movies at this time</string>
+    <string name="empty_message_upcoming">We\'re unable to load upcoming movies at this time</string>
+    <string name="trending_movies">Trending Movies</string>
+    <string name="upcoming_movies">Upcoming Movies</string>
 </resources>

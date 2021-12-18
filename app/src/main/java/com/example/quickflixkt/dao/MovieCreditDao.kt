@@ -1,12 +1,13 @@
 package com.example.quickflixkt.dao
 
+import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.quickflixkt.models.MovieCredit
 import kotlinx.coroutines.flow.Flow
 
-
+@Dao
 interface MovieCreditDao {
     @Insert
     suspend fun insertMovieCredit(movieCredit: MovieCredit)

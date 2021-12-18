@@ -9,11 +9,13 @@ data class TrendingMovie(
     @PrimaryKey
     @NonNull
     val id: Int,
-    val imdb_id: String,
     val original_title: String,
     val title: String,
     val overview: String,
-    val status: String,
+//    val status: String,
     val vote_average: Double,
+    val poster_path: String,
     val backdrop_path: String
 )
+
+

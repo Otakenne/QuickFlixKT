@@ -1,12 +1,13 @@
 package com.example.quickflixkt.dao
 
+import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.quickflixkt.models.TrendingMovie
 import kotlinx.coroutines.flow.Flow
 
-
+@Dao
 interface TrendingMoviesDao {
     @Insert
     suspend fun insertTrendingMovie(trendingMovie: TrendingMovie)

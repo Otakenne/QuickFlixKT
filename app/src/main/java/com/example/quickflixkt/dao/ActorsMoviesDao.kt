@@ -1,5 +1,6 @@
 package com.example.quickflixkt.dao
 
+import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
@@ -7,7 +8,7 @@ import com.example.quickflixkt.models.ActorMovie
 import com.example.quickflixkt.models.Movie
 import kotlinx.coroutines.flow.Flow
 
-
+@Dao
 interface ActorsMoviesDao {
     @Insert
     suspend fun insertActorMovie(actorMovie: ActorMovie)
@@ -22,5 +23,5 @@ interface ActorsMoviesDao {
     fun deleteAllActorMovies()
 
     @Query("SELECT * FROM actor_movies_table WHERE actor_id = :actor_id")
-    fun getActorMovies(actor_id: String): Flow<List<Movie>>
+    fun getActorMovies(actor_id: String): Flow<List<ActorMovie>>
 }
