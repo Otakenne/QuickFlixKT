@@ -12,18 +12,34 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:background="@drawable/movies_image_clipper"
-        app:clipToOutline="@{true}">
+        android:orientation="vertical"
+        android:padding="5dp">
 
-        <ImageView
-            android:id="@+id/actor_movie_image"
-            android:layout_width="150dp"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:contentDescription="@string/movie_thumbnail"
-            app:imageUrl="@{movie.backdrop_path}"
-            tools:src="@tools:sample/backgrounds/scenic"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/movies_image_clipper"
+            app:clipToOutline="@{true}">
 
+            <ImageView
+                android:id="@+id/actor_movie_image"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:contentDescription="@string/movie_thumbnail"
+                app:imageUrl="@{movie.poster_path}"
+                tools:src="@tools:sample/backgrounds/scenic"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="@{movie.title}"
+            style="@style/MovieTextView" />
     </LinearLayout>
 </layout>

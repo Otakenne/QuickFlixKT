@@ -9,12 +9,13 @@ data class SimilarMovies(
     @PrimaryKey
     @NonNull
     val id: Int,
-    val original_movie_id: String,
-    val imdb_id: String,
-    val original_title: String,
-    val title: String,
-    val overview: String,
-    val status: String,
-    val vote_average: Double,
-    val backdrop_path: String
+    var original_movie_id: String?,
+    val imdb_id: String?,
+    val original_title: String?,
+    val title: String?,
+    val overview: String?,
+    val status: String?,
+    val vote_average: Double?,
+    val backdrop_path: String?,
+    val poster_path: String?
 )

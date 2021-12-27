@@ -18,5 +18,6 @@
         <item name="accent_color">@color/accent</item>
         <item name="separator_view_color">@color/separator_gray</item>
         <item name="picture_background_color">@color/default_color_secondary_dark</item>
+        <item name="colorControlNormal">@color/white</item>
     </style>
 </resources>

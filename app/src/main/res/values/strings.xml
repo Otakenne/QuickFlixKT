@@ -8,4 +8,18 @@
     <string name="empty_message_upcoming">We\'re unable to load upcoming movies at this time</string>
     <string name="trending_movies">Trending Movies</string>
     <string name="upcoming_movies">Upcoming Movies</string>
+    <string name="actor_image">Actor Image</string>
+    <string name="movies_by">Movies by %s</string>
+    <string name="movies_by_error">We couldn\'t find any other movies by %s</string>
+    <string name="movie_credits_error">We couldn\'t retrieve the credits for %s</string>
+    <string name="similar_movies_error">We couldn\'t retrieve similar movies to %s</string>
+    <string name="error_image">Error Image</string>
+    <string name="movie_error_message">We couldn\'t retrieve details for this movie at this time</string>
+    <string name="actor_error_message">We couldn\'t retrieve details for this actor at this time</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="biography">Biography</string>
+    <string name="similar_movies">Similar Movies</string>
+    <string name="credits">Credits</string>
 </resources>

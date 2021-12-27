@@ -5,6 +5,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="com.example.quickflixkt.utility.LoadStatus" />
+
+        <variable
+            name="default_image_url"
+            type="String" />
+
         <variable
             name="trendingMoviesViewModel"
             type="com.example.quickflixkt.viewmodels.TrendingMoviesViewModel" />
@@ -22,6 +28,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:scrollbars="none"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -30,57 +37,105 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/general_padding"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/top_movie_image"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="350dp"
-                    android:scaleType="centerCrop"
-                    android:contentDescription="@string/top_movie_image"
-                    />
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/general_padding"
+                    android:layout_marginEnd="@dimen/general_padding"
+                    android:layout_marginBottom="@dimen/general_padding"
+                    android:background="@drawable/movies_image_clipper"
+                    app:clipToOutline="@{true}">
+
+                    <ImageView
+                        android:id="@+id/top_movie_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:scaleType="centerCrop"
+                        android:contentDescription="@string/top_movie_image"
+                        app:headerImageUrl="@{trendingMoviesViewModel.trendingMovies}"/>
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/trending_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/general_padding"
-                    android:text="@string/trending_movies"/>
+                    android:layout_marginStart="@dimen/general_padding"
+                    android:layout_marginEnd="@dimen/general_padding"
+                    android:layout_marginTop="@dimen/same_section_padding"
+                    android:text="@string/trending_movies"
+                    style="@style/HeaderTextView"/>
+
+                <ProgressBar
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="40dp"
+                    android:layout_gravity="center"
+                    app:visibility="@{trendingMoviesViewModel.status == LoadStatus.LOADING &amp;&amp; trendingMoviesViewModel.trendingMovies.size() == 0}" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="40dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:text="@string/empty_message_trending"
-                    app:visibility="@{trendingMoviesViewModel.trendingMovies.size() == 0}" />
+                    app:visibility="@{trendingMoviesViewModel.status != LoadStatus.LOADING &amp;&amp; trendingMoviesViewModel.trendingMovies.size() == 0}"
+                    style="@style/ErrorTextView"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/trending_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/same_section_padding"
+                    android:layout_marginBottom="@dimen/no_padding"
+                    android:paddingStart="@dimen/general_padding"
+                    android:paddingEnd="@dimen/general_padding"
                     android:clipToPadding="false"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:trendingMoviesListData="@{trendingMoviesViewModel.trendingMovies}"
                     app:visibility="@{trendingMoviesViewModel.trendingMovies.size() != 0}"
                     tools:itemCount="10"
-                    tools:listitem="@layout/trending_movies_row_layout"/>
+                    tools:listitem="@layout/trending_movies_row_layout" />
 
                 <TextView
                     android:id="@+id/upcoming_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/upcoming_movies"/>
+                    android:layout_marginStart="@dimen/general_padding"
+                    android:layout_marginEnd="@dimen/general_padding"
+                    android:layout_marginTop="@dimen/section_padding"
+                    android:text="@string/upcoming_movies"
+                    style="@style/HeaderTextView"/>
+
+                <ProgressBar
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="40dp"
+                    android:layout_gravity="center"
+                    app:visibility="@{upcomingMoviesViewModel.status == LoadStatus.LOADING &amp;&amp; upcomingMoviesViewModel.upcomingMovies.size() == 0}" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="40dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:text="@string/empty_message_upcoming"
-                    app:visibility="@{upcomingMoviesViewModel.upcomingMovies.size() == 0}" />
+                    app:visibility="@{upcomingMoviesViewModel.status != LoadStatus.LOADING &amp;&amp; upcomingMoviesViewModel.upcomingMovies.size() == 0}"
+                    style="@style/ErrorTextView"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/upcoming_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/same_section_padding"
+                    android:layout_marginBottom="@dimen/recycler_view_progressbar_and_error_margin"
+                    android:paddingStart="@dimen/general_padding"
+                    android:paddingEnd="@dimen/general_padding"
                     android:clipToPadding="false"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

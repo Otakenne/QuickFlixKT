@@ -5,56 +5,82 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.quickflixkt.R
+import com.example.quickflixkt.activities.MainActivity
+import com.example.quickflixkt.adapters.MovieCreditsAdapter
+import com.example.quickflixkt.adapters.SimilarMoviesAdapter
+import com.example.quickflixkt.database.QuickFlix
+import com.example.quickflixkt.databinding.FragmentMovieBinding
+import com.example.quickflixkt.repositories.MovieCreditsRepository
+import com.example.quickflixkt.repositories.MoviesRepository
+import com.example.quickflixkt.repositories.SimilarMoviesRepository
+import com.example.quickflixkt.viewmodels.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [MovieFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MovieFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private val navigationArgs: MovieFragmentArgs by navArgs()
+    private var _binding: FragmentMovieBinding? = null
+    private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    private val movieViewModel: MoviesViewModel by viewModels {
+        MoviesViewModelFactory(
+            MoviesRepository(
+                navigationArgs.movieId,
+                (activity?.application as QuickFlix).database.movieDao()
+            )
+        )
+    }
+
+    private val movieCreditsViewModel: MovieCreditsViewModel by viewModels {
+        MovieCreditsViewModelFactory(
+            MovieCreditsRepository(
+                navigationArgs.movieId,
+                (activity?.application as QuickFlix).database.movieCreditDao()
+            )
+        )
+    }
+
+    private val similarMoviesViewModel: SimilarMoviesViewModel by viewModels {
+        SimilarMoviesViewModelFactory(
+            SimilarMoviesRepository(
+                navigationArgs.movieId,
+                (activity?.application as QuickFlix).database.similarMoviesDao()
+            )
+        )
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_movie, container, false)
+        _binding = FragmentMovieBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MovieFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MovieFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        (activity as MainActivity).supportActionBar?.title = navigationArgs.movieName
+//        (activity as MainActivity).supportActionBar?.
+        (activity as MainActivity).supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back)
+
+        binding.lifecycleOwner = this
+        binding.movieViewModel = movieViewModel
+        binding.movieCreditsViewModel = movieCreditsViewModel
+        binding.similarMoviesViewModel = similarMoviesViewModel
+        binding.holderText = "Some Text"
+
+        binding.creditList.adapter = MovieCreditsAdapter {
+            val action = MovieFragmentDirections.actionMovieFragmentToActorFragment(it.id, it.original_name!!)
+            findNavController().navigate(action)
+        }
+
+        binding.similarList.adapter = SimilarMoviesAdapter{
+            val action = MovieFragmentDirections.actionMovieFragmentSelf(it.id, it.title!!)
+            findNavController().navigate(action)
+        }
     }
 }

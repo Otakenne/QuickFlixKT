@@ -19,11 +19,14 @@ interface ActorDao {
     @Delete
     suspend fun deleteActor(actor: Actor)
 
+    @Query("DELETE FROM actor_table WHERE id = :actorID")
+    suspend fun deleteActor(actorID: Int)
+
     @Query("DELETE FROM actor_table")
-    fun deleteAllActors()
+    suspend fun deleteAllActors()
 
     @Query("SELECT * FROM actor_table WHERE id = :id")
-    fun getActor(id: String): Flow<Actor>
+    fun getActor(id: Int): Flow<Actor>
 
     @Query("SELECT * FROM actor_table")
     fun getAllActors(): Flow<List<Actor>>

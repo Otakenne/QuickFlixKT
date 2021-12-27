@@ -12,6 +12,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:padding="5dp">
 
         <LinearLayout
@@ -30,5 +31,15 @@
                 tools:src="@tools:sample/backgrounds/scenic"/>
 
         </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="@{movie.title}"
+            style="@style/MovieTextView"/>
     </LinearLayout>
 </layout>

@@ -10,7 +10,9 @@
         <item name="colorSecondaryVariant">@color/accent</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
+<!--        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>-->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
         <!-- Colors -->
         <item name="default_color">@color/white</item>
         <item name="default_color_secondary">@color/default_color_secondary_light</item>
@@ -18,5 +20,32 @@
         <item name="accent_color">@color/accent</item>
         <item name="separator_view_color">@color/separator_gray</item>
         <item name="picture_background_color">@color/default_color_secondary_light</item>
+        <item name="colorControlNormal">@color/black</item>
+    </style>
+
+    <style name="HeaderTextView" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">?default_text_color</item>
+        <item name="android:textSize">@dimen/header_text_size</item>
+<!--        <item name="android:textStyle">bold</item>-->
+    </style>
+
+    <style name="ErrorTextView" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">?default_text_color</item>
+        <item name="android:textSize">@dimen/header_text_size</item>
+    </style>
+
+    <style name="MovieTextView" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">?default_text_color</item>
+        <item name="android:textSize">@dimen/movies_text_size</item>
+    </style>
+
+    <style name="CharacterTextView" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">?default_color_secondary</item>
+        <item name="android:textSize">@dimen/movies_text_size</item>
+    </style>
+
+    <style name="DescriptionTextView" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">?default_text_color</item>
+        <item name="android:textSize">@dimen/movies_text_size</item>
     </style>
 </resources>

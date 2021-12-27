@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="no_padding">0dp</dimen>
+    <dimen name="same_section_padding">10dp</dimen>
     <dimen name="general_padding">20dp</dimen>
+    <dimen name="recycler_view_progressbar_and_error_margin">40dp</dimen>
+    <dimen name="section_padding">30dp</dimen>
+
+    <!--Text Sizes-->
+    <dimen name="header_text_size">23sp</dimen>
+    <dimen name="error_text_size">20sp</dimen>
+    <dimen name="movies_text_size">17sp</dimen>
 </resources>

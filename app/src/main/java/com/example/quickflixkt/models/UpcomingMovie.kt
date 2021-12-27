@@ -14,5 +14,5 @@ data class UpcomingMovie(
     val overview: String,
     val vote_average: Double,
     val poster_path: String,
-    val backdrop_path: String
+    val backdrop_path: String?
 )

@@ -15,11 +15,11 @@ import com.example.quickflixkt.models.*
         SearchedMovies::class,
         SimilarMovies::class,
         TrendingMovie::class,
-        UpcomingMovie::class], version = 1, exportSchema = false
+        UpcomingMovie::class], version = 11, exportSchema = false
 )
 abstract class MoviesDatabase : RoomDatabase() {
     abstract fun actorDao(): ActorDao
-    abstract fun actorMoviesDao(): ActorsMoviesDao
+    abstract fun actorMoviesDao(): ActorMoviesDao
     abstract fun movieCreditDao(): MovieCreditDao
     abstract fun movieDao(): MovieDao
     abstract fun searchedMoviesDao(): SearchedMoviesDao

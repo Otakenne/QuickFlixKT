@@ -7,9 +7,10 @@ import androidx.room.PrimaryKey
 data class ActorMovie(
     @PrimaryKey
     val id: Int,
-    val actor_id: Int,
-    val title: String,
-    val original_title: String,
-    val character: String,
-    val backdrop_path: String
+    var actor_id: Int?,
+    val title: String?,
+    val original_title: String?,
+    val character: String?,
+    val backdrop_path: String?,
+    val poster_path: String?
 )

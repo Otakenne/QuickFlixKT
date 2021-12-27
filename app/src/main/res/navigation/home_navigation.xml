@@ -22,6 +22,9 @@
         <argument
             android:name="movie_id"
             app:argType="integer" />
+        <argument
+            android:name="movie_name"
+            app:argType="string" />
         <action
             android:id="@+id/action_movieFragment_to_actorFragment"
             app:destination="@id/actorFragment" />
@@ -37,6 +40,9 @@
         <argument
             android:name="actor_id"
             app:argType="integer" />
+        <argument
+            android:name="actor_name"
+            app:argType="string" />
         <action
             android:id="@+id/action_actorFragment_to_movieFragment"
             app:destination="@id/movieFragment" />

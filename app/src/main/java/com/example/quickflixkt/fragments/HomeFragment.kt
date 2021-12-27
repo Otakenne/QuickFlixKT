@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.quickflixkt.R
+import com.example.quickflixkt.activities.MainActivity
 import com.example.quickflixkt.adapters.TrendingMoviesAdapter
 import com.example.quickflixkt.adapters.UpcomingMoviesAdapter
 import com.example.quickflixkt.database.MoviesDatabase
@@ -16,6 +17,7 @@ import com.example.quickflixkt.database.QuickFlix
 import com.example.quickflixkt.databinding.FragmentHomeBinding
 import com.example.quickflixkt.repositories.TrendingMoviesRepository
 import com.example.quickflixkt.repositories.UpcomingMoviesRepository
+import com.example.quickflixkt.utility.Constants
 import com.example.quickflixkt.viewmodels.TrendingMoviesViewModel
 import com.example.quickflixkt.viewmodels.TrendingMoviesViewModelFactory
 import com.example.quickflixkt.viewmodels.UpcomingMoviesViewModel
@@ -54,17 +56,20 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (activity as MainActivity).supportActionBar?.title = ""
+
         binding.lifecycleOwner = this
+        binding.defaultImageUrl = Constants.DEFAULT_IMAGE_URL
         binding.trendingMoviesViewModel = trendingMoviesViewModel
         binding.upcomingMoviesViewModel = upcomingMoviesViewModel
 
         binding.trendingList.adapter = TrendingMoviesAdapter {
-            val action = HomeFragmentDirections.actionHomeFragmentToMovieFragment(it.id)
+            val action = HomeFragmentDirections.actionHomeFragmentToMovieFragment(it.id, it.title)
             findNavController().navigate(action)
         }
 
         binding.upcomingList.adapter = UpcomingMoviesAdapter {
-            val action = HomeFragmentDirections.actionHomeFragmentToMovieFragment(it.id)
+            val action = HomeFragmentDirections.actionHomeFragmentToMovieFragment(it.id, it.title)
             findNavController().navigate(action)
         }
     }

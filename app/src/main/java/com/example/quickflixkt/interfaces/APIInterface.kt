@@ -19,39 +19,39 @@ interface APIInterface {
         @Query("api_key") api_key: String
     ): UpcomingMoviesResults
 
-    @GET("movie/{movie_id}?api_key={api_key}")
+    @GET("movie/{movie_id}")
     suspend fun getMovie(
-        @Query("api_key") api_key: String?,
-        @Path("movie_id") movie_id: String?
+        @Path("movie_id") movie_id: String,
+        @Query("api_key") api_key: String
     ): Movie
 
-    @GET("movie/{movie_id}/credits?api_key={api_key}")
+    @GET("movie/{movie_id}/credits")
     suspend fun getMovieCredits(
-        @Query("api_key") api_key: String?,
-        @Path("movie_id") movie_id: String?
+        @Path("movie_id") movie_id: String,
+        @Query("api_key") api_key: String
     ): MovieCreditResults
 
-    @GET("movie/{movie_id}/similar?api_key={api_key}")
+    @GET("movie/{movie_id}/similar")
     suspend fun getSimilarMovies(
-        @Query("api_key") api_key: String?,
-        @Path("movie_id") movie_id: String?
-    ): MovieCreditResults
+        @Path("movie_id") movie_id: String,
+        @Query("api_key") api_key: String
+    ): SimilarMoviesResults
 
-    @GET("person/{person_id}?api_key={api_key}")
+    @GET("person/{person_id}")
     suspend fun getActor(
-        @Query("api_key") api_key: String?,
-        @Path("person_id") person_id: String?
+        @Path("person_id") person_id: String,
+        @Query("api_key") api_key: String
     ): Actor
 
-    @GET("person/{person_id}/movie_credits?api_key={api_key}")
+    @GET("person/{person_id}/movie_credits")
     suspend fun getActorCredit(
-        @Query("api_key") api_key: String?,
-        @Path("person_id") person_id: String?
+        @Path("person_id") person_id: String,
+        @Query("api_key") api_key: String
     ): ActorMoviesResults
 
-    @GET("search/movie?api_key={api_key}&query={query}")
+    @GET("search/movie")
     suspend fun getMovieSearchResults(
-        @Query("api_key") api_key: String?,
-        @Query("query") query: String?
+        @Query("api_key") api_key: String,
+        @Query("query") query: String
     ): SearchedMoviesResults
 }

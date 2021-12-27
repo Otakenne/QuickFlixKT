@@ -1,32 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.ActorFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ScrollView
+    <data>
+        <import type="com.example.quickflixkt.utility.LoadStatus" />
+
+        <variable
+            name="actorViewModel"
+            type="com.example.quickflixkt.viewmodels.ActorsViewModel" />
+
+        <variable
+            name="actorMoviesViewModel"
+            type="com.example.quickflixkt.viewmodels.ActorMoviesViewModel" />
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:layout_height="match_parent"
+        tools:context=".fragments.ActorFragment">
 
         <LinearLayout
+            android:id="@+id/error_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            app:visibility="@{actorViewModel.status != LoadStatus.LOADING &amp;&amp; actorViewModel.actor == null}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
-                android:id="@+id/movie_image"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:contentDescription="@string/top_movie_image"/>
+                android:id="@+id/error_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:contentDescription="@string/error_image" />
+
+            <TextView
+                android:id="@+id/error_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="40dp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="@string/movie_error_message"
+                style="@style/ErrorTextView"/>
 
         </LinearLayout>
 
-    </ScrollView>
+        <ProgressBar
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            app:visibility="@{actorViewModel.status == LoadStatus.LOADING &amp;&amp; actorViewModel.actor == null}" />
 
-</LinearLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            app:visibility="@{actorViewModel.actor != null}">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/general_padding"
+                android:paddingBottom="@dimen/recycler_view_progressbar_and_error_margin"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/actor_image_clipper"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/general_padding"
+                    android:background="@drawable/actor_image_clipper"
+                    app:clipToOutline="@{true}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/actor_image"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:contentDescription="@string/actor_image"
+                        android:scaleType="centerCrop"
+                        app:imageUrl="@{actorViewModel.actor.profile_path}" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="@dimen/general_padding"
+                    android:layout_marginEnd="@dimen/general_padding"
+                    android:gravity="center|start"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="@id/actor_image_clipper"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/actor_image_clipper"
+                    app:layout_constraintTop_toTopOf="@id/actor_image_clipper">
+
+                    <TextView
+                        style="@style/HeaderTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{actorViewModel.actor.name}" />
+
+                    <TextView
+                        style="@style/DescriptionTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{(actorViewModel.actor.gender == 1) ? @string/female : @string/male}" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/biography_title"
+                    style="@style/HeaderTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/section_padding"
+                    android:layout_marginStart="@dimen/general_padding"
+                    android:layout_marginEnd="@dimen/general_padding"
+                    android:text="@string/biography"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/actor_image_clipper" />
+
+                <TextView
+                    android:id="@+id/biography"
+                    style="@style/DescriptionTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/same_section_padding"
+                    android:layout_marginStart="@dimen/general_padding"
+                    android:layout_marginEnd="@dimen/general_padding"
+                    android:text="@{actorViewModel.actor.biography}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/biography_title" />
+
+                <TextView
+                    android:id="@+id/movies_by"
+                    style="@style/HeaderTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/section_padding"
+                    android:layout_marginStart="@dimen/general_padding"
+                    android:layout_marginEnd="@dimen/general_padding"
+                    android:text="@{@string/movies_by(actorViewModel.actor.name)}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/biography" />
+
+                <ProgressBar
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/recycler_view_progressbar_and_error_margin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/movies_by"
+                    app:visibility="@{actorMoviesViewModel.status == LoadStatus.LOADING &amp;&amp; actorMoviesViewModel.actorMovies.size() == 0}" />
+
+                <TextView
+                    style="@style/ErrorTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/recycler_view_progressbar_and_error_margin"
+                    android:text="@{@string/movies_by_error(actorViewModel.actor.name)}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/movies_by"
+                    app:visibility="@{actorMoviesViewModel.status != LoadStatus.LOADING &amp;&amp; actorMoviesViewModel.actorMovies.size() == 0}" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/movies_by_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/same_section_padding"
+                    android:layout_marginBottom="@dimen/recycler_view_progressbar_and_error_margin"
+                    android:paddingStart="@dimen/general_padding"
+                    android:paddingEnd="@dimen/general_padding"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    app:actorMoviesListData="@{actorMoviesViewModel.actorMovies}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/movies_by"
+                    app:visibility="@{actorMoviesViewModel.actorMovies.size() != 0}"
+                    tools:itemCount="10"
+                    tools:listitem="@layout/actor_movies_row" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
+
+</layout>
