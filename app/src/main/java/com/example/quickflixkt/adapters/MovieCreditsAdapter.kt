@@ -39,13 +39,13 @@ class MovieCreditsAdapter(private val clickListener: (MovieCredit) -> Unit):
         holder.bind(movieCredit)
     }
 
-    override fun getItemCount(): Int {
-        return if (super.getItemCount() > 6) {
-            6
-        } else {
-            super.getItemCount()
-        }
-    }
+//    override fun getItemCount(): Int {
+//        return if (super.getItemCount() > 6) {
+//            6
+//        } else {
+//            super.getItemCount()
+//        }
+//    }
 
     companion object {
         private var DiffCallback = object: DiffUtil.ItemCallback<MovieCredit>() {
