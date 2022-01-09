@@ -10,6 +10,9 @@ It was written in Kotlin and it utilises a ROOM database to persist data, Retrof
 ## Upcoming Features
 - Search
 
+## Play Store URL
+https://play.google.com/store/apps/details?id=com.otakenne.quickflixkt
+
 ## Screenshots
 <img src="https://github.com/Otakenne/QuickFlixKT/blob/master/Screenshot_20211227-012520_QuickFlixKT.jpeg" width="250">            <img src="https://github.com/Otakenne/QuickFlixKT/blob/master/Screenshot_20211227-012607_QuickFlixKT.jpeg" width="250">            <img src="https://github.com/Otakenne/QuickFlixKT/blob/master/Screenshot_20211227-012642_QuickFlixKT.jpeg" width="250">
 
